@@ -2,6 +2,7 @@ import "./styles/App.css";
 import { useState } from "react";
 import PostList from "./components/PostList";
 import ControledInput from "./ui/ControledInput/ControledInput";
+import MyButton from "./ui/MyButton/MyButton";
 
 function App() {
   const [postTitle, setPostTitle] = useState('');
@@ -37,7 +38,9 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPosts([...posts, { id: posts[posts.length - 1].id + 1, title: postTitle, description: postDescription}])
+    setPosts([...posts, { id: posts[posts.length - 1].id + 1, title: postTitle, description: postDescription}]);
+    setPostTitle('');
+    setPostDescription('');
   }
 
   return (
@@ -45,7 +48,7 @@ function App() {
       <form action="">
         <ControledInput placeholder="Title" value={postTitle} handler={titleHandler} debounceInterval="1000" />
         <ControledInput placeholder="Description" value={postDescription} handler={descriptionHandler} debounceInterval="1000" />
-        <button onClick={event => handleSubmit(event)}>Create post</button>
+        <MyButton handler={handleSubmit} content={"Create post"}></MyButton>
       </form>
       <PostList posts={posts} listTitle="Posts" />
     </ div>
