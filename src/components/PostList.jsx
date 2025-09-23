@@ -6,11 +6,11 @@ const PostList = (props) => {
             <h1 style={{ textAlign: "center" }}>{props.listTitle}</h1>
             {
                 props.posts.map(p =>
-                    <PostItem key={p.id} id={p.id} title={p.title} description={p.description} />
+                    <PostItem key={p.id} id={p.id} title={p.title} description={p.description} deletePostHandler={props.deletePostHandler}/>
                 )
             }
         </ div>
     )
 }
-
+ 
 export default PostList;

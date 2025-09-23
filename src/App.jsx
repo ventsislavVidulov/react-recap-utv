@@ -24,15 +24,22 @@ function App() {
 
     ]
   );
- 
+
   const addPostHandler = (posts) => {
     setPosts(posts);
   }
 
+  const deletePostHandler = (posts) => {
+    return function (postId) {
+      setPosts([...posts.filter(p => p.id !== postId)])
+    }
+
+  }
+
   return (
     <div className='app'>
-      <PostList posts={posts} listTitle="Posts" />
-      <PostForm posts={posts} addPostHandler={addPostHandler}/>
+      <PostList posts={posts} deletePostHandler={deletePostHandler(posts)} listTitle="Posts" />
+      <PostForm posts={posts} addPostHandler={addPostHandler} />
     </ div>
   )
 }

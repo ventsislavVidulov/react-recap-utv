@@ -1,4 +1,5 @@
 import React from 'react'
+import MyButton from '../ui/MyButton/MyButton'
 
 const PostItem = (props) => {
   return (
@@ -8,10 +9,10 @@ const PostItem = (props) => {
           <div>{props.description}</div>
         </div>
         <div className="post__btns">
-          <button>Delete post</button>
+          <MyButton handler={props.deletePostHandler} id={props.id} submit={false}>Delete post</MyButton>
         </div>
       </div>
   )
 }
 
-export default PostItem
+export default PostItem;
