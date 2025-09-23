@@ -9,7 +9,7 @@ const PostItem = (props) => {
           <div>{props.description}</div>
         </div>
         <div className="post__btns">
-          <MyButton handler={props.deletePostHandler} id={props.id} submit={false}>Delete post</MyButton>
+          <MyButton onClick={() => props.deletePostHandler(props.id)} id={props.id}>Delete post</MyButton>
         </div>
       </div>
   )
