@@ -1,8 +1,11 @@
-import "./styles/App.css"
-import PostItem from './components/PostItem';
+import "./styles/App.css";
 import { useState } from "react";
+import PostList from "./components/PostList";
+import ControledInput from "./ui/ControledInput/ControledInput";
 
 function App() {
+  const [postTitle, setPostTitle] = useState('');
+  const [postDescription, setPostDescription] = useState('');
   const [posts, setPosts] = useState(
     [
       {
@@ -20,17 +23,31 @@ function App() {
         title: "SQL",
         description: "SQL is querry language used in reletional data bases"
       }
-    
+
     ]
-  )
+  );
+
+  const titleHandler = (title) => {
+    setPostTitle(title);
+  };
+
+  const descriptionHandler = (description) => {
+    setPostDescription(description);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setPosts([...posts, { id: posts[posts.length - 1].id + 1, title: postTitle, description: postDescription}])
+  }
 
   return (
     <div className='app'>
-      {
-        posts.map(p =>
-          <PostItem key={p.id} id={p.id} title={p.title} description={p.description} />
-        )
-      }
+      <form action="">
+        <ControledInput placeholder="Title" value={postTitle} handler={titleHandler} debounceInterval="1000" />
+        <ControledInput placeholder="Description" value={postDescription} handler={descriptionHandler} debounceInterval="1000" />
+        <button onClick={event => handleSubmit(event)}>Create post</button>
+      </form>
+      <PostList posts={posts} listTitle="Posts" />
     </ div>
   )
 }
