@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Counter from './components/Counter';
+import ClassCounter from './components/ClassCounter';
 
 function App() {
   const [inputValue, setInputValue] = useState('Initial value');
@@ -17,6 +18,7 @@ function App() {
   return (
     <>
       <Counter />
+      <ClassCounter />
       <h1>{inputValue}</h1>
       <input type="text" name="" id="" value={inputValue} onChange={e => handleInput(e)} />
     </>
