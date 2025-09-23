@@ -29,16 +29,13 @@ function App() {
     setPosts(posts);
   }
 
-  const deletePostHandler = (posts) => {
-    return function (postId) {
-      setPosts([...posts.filter(p => p.id !== postId)])
-    }
-
+  const deletePostHandler = (postId) => {
+    setPosts(posts.filter(p => p.id !== postId))
   }
 
   return (
     <div className='app'>
-      <PostList posts={posts} deletePostHandler={deletePostHandler(posts)} listTitle="Posts" />
+      <PostList posts={posts} deletePostHandler={deletePostHandler} listTitle="Posts" />
       <PostForm posts={posts} addPostHandler={addPostHandler} />
     </ div>
   )
