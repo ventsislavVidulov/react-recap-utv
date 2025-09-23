@@ -1,17 +1,8 @@
 import styles from './MyButton.module.css';
 
-const MyButton = ({ handler, children, id, submit }) => {
-
-    let clickHandler;
-
-    if (submit) {
-        clickHandler = (e) => handler(e)
-    } else {
-        clickHandler = () => handler(id)
-    }
-
+const MyButton = ({children, ...props}) => {
     return (
-        <button onClick={clickHandler} id={id} className={styles.myButton}>{children}</button>
+        <button className={styles.myButton} {...props}>{children}</button>
     )
 }
 
