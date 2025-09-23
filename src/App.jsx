@@ -7,9 +7,8 @@ function App() {
 
   return (
     <div className='app'>
-      <PostItem />
-      <PostItem />
-      <ControledInput />
+      <PostItem title="1. Java Script" description="Java Script is a script language, used for web development and others"/>
+      <PostItem title="2. C Sharp" description="C Sharp is OOP language createt by Microsoft"/>
     </ div>
   )
 }
