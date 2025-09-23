@@ -48,7 +48,7 @@ function App() {
       <form action="">
         <ControledInput placeholder="Title" value={postTitle} handler={titleHandler} debounceInterval="1000" />
         <ControledInput placeholder="Description" value={postDescription} handler={descriptionHandler} debounceInterval="1000" />
-        <MyButton handler={handleSubmit} content={"Create post"}></MyButton>
+        <MyButton handler={handleSubmit}>Create post</MyButton>
       </form>
       <PostList posts={posts} listTitle="Posts" />
     </ div>

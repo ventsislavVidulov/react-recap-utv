@@ -1,8 +1,8 @@
 import styles from './MyButton.module.css';
 
-const MyButton = ({content, handler}) => {
+const MyButton = ({handler, children}) => {
   return (
-    <button onClick={handler} className={styles.myButton}>{content}</button>
+    <button onClick={handler} className={styles.myButton}>{children}</button>
   )
 }
 
