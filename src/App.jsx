@@ -1,21 +1,8 @@
 import { useState } from 'react'
+import Counter from './components/Counter';
 
 function App() {
-
-  const [likes, setLikes] = useState({ count: 0 });
   const [inputValue, setInputValue] = useState('Initial value');
-
-  const handleIncrement = (likes) => {
-    return {
-      count: likes.count + 1
-    }
-  };
-
-  const handleDecrement = (likes) => {
-    return {
-      count: likes.count - 1
-    }
-  };
 
   const handleInput = (e) => {
     let timerId;
@@ -29,11 +16,9 @@ function App() {
 
   return (
     <>
-      <h1>{likes.count}</h1>
+      <Counter />
       <h1>{inputValue}</h1>
       <input type="text" name="" id="" value={inputValue} onChange={e => handleInput(e)} />
-      <button onClick={() => setLikes(handleIncrement(likes))}>Increment</button>
-      <button onClick={() => setLikes(handleDecrement(likes))}>Decrement</button>
     </>
   )
 }
