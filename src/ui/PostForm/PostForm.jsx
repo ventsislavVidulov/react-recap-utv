@@ -4,31 +4,30 @@ import ControledInput from "../ControledInput/ControledInput";
 import MyButton from "../MyButton/MyButton";
 
 const PostForm = ({posts, addPostHandler}) => {
-    const [postTitle, setPostTitle] = useState('');
-    const [postTitleResetSignal, setPostTitleResetSignal] = useState(false);
-    const [postDescriptionResetSignal, setPostDescriptionResetSignal] = useState(false);
-    const [postDescription, setPostDescription] = useState('');
+    const [post, setPost] = useState({});
+    const [resetSignal, setResetSignal] = useState(false);
 
     const titleHandler = (title) => {
-        setPostTitle(title);
+        setPost({...post, title});
     };
 
     const descriptionHandler = (description) => {
-        setPostDescription(description);
+        setPost({...post, description});
     };
 
     const handleSubmit = (e) => {
+        console.log(e);
+        
         e.preventDefault();
-        addPostHandler([...posts, { id: posts[posts.length - 1].id + 1, title: postTitle, description: postDescription }]);
-        setPostTitleResetSignal(state => !state);
-        setPostDescriptionResetSignal(state => !state);
+        addPostHandler([...posts, { id: posts[posts.length - 1].id + 1, title: post.title, description: post.description }]);
+        setResetSignal(resetState => !resetState);
     }
 
     return (
         <form action="">
-            <ControledInput placeholder="Title" value={postTitle} handler={titleHandler} debounceInterval="1000" resetSignal={postTitleResetSignal} />
-            <ControledInput placeholder="Description" value={postDescription} handler={descriptionHandler} debounceInterval="1000" resetSignal={postDescriptionResetSignal} />
-            <MyButton handler={handleSubmit}>Create post</MyButton>
+            <ControledInput placeholder="Title" value={post.title} handler={titleHandler} debounceInterval="1000" resetSignal={resetSignal} />
+            <ControledInput placeholder="Description" value={post.description} handler={descriptionHandler} debounceInterval="1000" resetSignal={resetSignal} />
+            <MyButton handler={handleSubmit} submit={true}>Create post</MyButton>
         </form>
     )
 }
