@@ -2,24 +2,15 @@ import { useState, useEffect, useMemo } from "react"
 
 import MySelect from "../../ui/MySelect/MySelect";
 import ControledInput from "../../ui/ControledInput/ControledInput";
+import { usePosts } from "../../hooks/usePosts";
 
 const SortComponent = ({ posts, sortHandler }) => {
 
     const [sortObject, setSortObject] = useState({ accendingDescending: 'accending', sortChriterion: 'id', searchQuery: '' });
-
-    const sortedPosts = useMemo(() => {
-        // console.log('Use memo called');
-        if (sortObject.sortChriterion === 'id') {
-            return [...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.id - b.id : b.id - a.id)]
-        } else if (sortObject.sortChriterion === 'title') {
-            return [...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title))]
-        } else if (sortObject.sortChriterion === 'description') {
-           return [...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.description.localeCompare(b.description) : b.description.localeCompare(a.description))]
-        }
-    }, [sortObject.accendingDescending, sortObject.sortChriterion, posts])
+    const sortedPosts = usePosts(posts, sortObject);
 
     useEffect(() => {
-        sortHandler([...sortedPosts.filter(p => p.title.toLowerCase().includes(sortObject.searchQuery.toLowerCase()))])
+        sortHandler([...sortedPosts])
     }, [sortObject, posts])
 
     const accendingDescendingHandler = (e) => {
