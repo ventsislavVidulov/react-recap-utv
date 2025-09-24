@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react"
 
 import MySelect from "../../ui/MySelect/MySelect";
+import ControledInput from "../../ui/ControledInput/ControledInput";
 
 const SortComponent = ({ posts, sortHandler }) => {
 
-    const [sortObject, setSortObject] = useState({ accendingDescending: 'accending', textContentSortCriterion: 'id' })
+    const [sortObject, setSortObject] = useState({ accendingDescending: 'accending', sortChriterion: 'id', searchQuery: '' });
 
     useEffect(() => {
+        const filteredPosts = [...posts.filter(p => p.title.toLowerCase().includes(sortObject.searchQuery.toLowerCase()))]
         if (sortObject.sortChriterion === 'id') {
-            sortHandler([...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.id - b.id : b.id - a.id)])
+            sortHandler([...filteredPosts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.id - b.id : b.id - a.id)])
         } else if (sortObject.sortChriterion === 'title') {
-            sortHandler([...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title))])
+            sortHandler([...filteredPosts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title))])
         } else if (sortObject.sortChriterion === 'description') {
-            sortHandler([...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.description.localeCompare(b.description) : b.description.localeCompare(a.description))])
+            sortHandler([...filteredPosts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.description.localeCompare(b.description) : b.description.localeCompare(a.description))])
         }
     }, [sortObject, posts])
 
@@ -24,11 +26,16 @@ const SortComponent = ({ posts, sortHandler }) => {
         setSortObject({ ...sortObject, sortChriterion: e.target.value });
     }
 
-    console.log(sortObject);
-    
+    const searchHandler = (value) => {
+        setSortObject({ ...sortObject, searchQuery: value });
+    }
 
     return (
         <>
+            <ControledInput
+                placeholder="Search..."
+                handler={searchHandler}
+            />
             <MySelect
                 options={
                     [
