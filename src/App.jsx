@@ -5,6 +5,7 @@ import PostForm from "./ui/PostForm/PostForm";
 
 import SortComponent from "./components/SortComponent/SortComponent";
 import MyModal from "./ui/MyModal/MyModal";
+import MyButton from "./ui/MyButton/MyButton";
 
 function App() {
   const [posts, setPosts] = useState(
@@ -29,9 +30,11 @@ function App() {
   );
 
   const [sortedPosts, setSortedPosts] = useState([...posts])
+  const [isModalVisibale, setIsModalVisibale] = useState(false);
 
   const addPostHandler = (posts) => {
     setPosts(posts);
+    setIsModalVisibale(false);
   }
 
   const deletePostHandler = (postId) => {
@@ -42,12 +45,17 @@ function App() {
     setSortedPosts(postsToBeSorted);
   }
 
+  const togleModalHandler = () => {
+    setIsModalVisibale(!isModalVisibale)
+  }
+
   return (
     <div className='app'>
-      <MyModal>
+      <MyModal visible={isModalVisibale} togleModalHandler={togleModalHandler}>
         <PostForm posts={sortedPosts} addPostHandler={addPostHandler} />
       </MyModal>
       <SortComponent sortHandler={sortHandler} posts={posts} />
+      <MyButton onClick={togleModalHandler}>{"Add post"}</MyButton>
       <PostList posts={sortedPosts} deletePostHandler={deletePostHandler} listTitle="Posts" />
     </ div>
   )
