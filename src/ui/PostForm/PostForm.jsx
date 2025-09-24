@@ -17,14 +17,17 @@ const PostForm = ({ posts, addPostHandler }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addPostHandler([...posts, { id: posts[posts.length - 1]?.id ? posts[posts.length - 1].id + 1: 1, title: post.title, description: post.description }]);
-        setResetSignal(resetState => !resetState);
+        if (post.title && post.description) {
+            addPostHandler([...posts, { id: posts[posts.length - 1]?.id ? posts[posts.length - 1].id + 1 : 1, title: post.title, description: post.description }]);
+            setResetSignal(resetState => !resetState);
+            setPost({});
+        }
     }
 
     return (
         <form action="">
-            <ControledInput placeholder="Title" value={post.title} handler={titleHandler} debounceInterval="1000" resetSignal={resetSignal} />
-            <ControledInput placeholder="Description" value={post.description} handler={descriptionHandler} debounceInterval="1000" resetSignal={resetSignal} />
+            <ControledInput placeholder="Title" value={post.title} handler={titleHandler} resetSignal={resetSignal} />
+            <ControledInput placeholder="Description" value={post.description} handler={descriptionHandler} resetSignal={resetSignal} />
             <MyButton onClick={handleSubmit}>Create post</MyButton>
         </form>
     )
