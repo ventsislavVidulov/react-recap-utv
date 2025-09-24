@@ -27,7 +27,7 @@ function App() {
     ]
   );
 
-  const [sortedPosts, setSortedPosts] = useState([])
+  const [sortedPosts, setSortedPosts] = useState([...posts])
 
   const addPostHandler = (posts) => {
     setPosts(posts);
