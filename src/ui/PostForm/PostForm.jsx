@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import styles from './PostForm.module.css'
+
 import ControledInput from "../ControledInput/ControledInput";
 import MyButton from "../MyButton/MyButton";
 
@@ -25,7 +27,7 @@ const PostForm = ({ posts, addPostHandler }) => {
     }
 
     return (
-        <form action="">
+        <form action="" className={styles.postForm}>
             <ControledInput placeholder="Title" value={post.title} handler={titleHandler} resetSignal={resetSignal} />
             <ControledInput placeholder="Description" value={post.description} handler={descriptionHandler} resetSignal={resetSignal} />
             <MyButton onClick={handleSubmit}>Create post</MyButton>
