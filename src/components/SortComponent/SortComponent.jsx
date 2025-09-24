@@ -16,7 +16,7 @@ const SortComponent = ({ posts, sortHandler }) => {
         } else if (sortObject.sortChriterion === 'description') {
            return [...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.description.localeCompare(b.description) : b.description.localeCompare(a.description))]
         }
-    }, [sortObject.accendingDescending, sortObject.sortChriterion])
+    }, [sortObject.accendingDescending, sortObject.sortChriterion, posts])
 
     useEffect(() => {
         sortHandler([...sortedPosts.filter(p => p.title.toLowerCase().includes(sortObject.searchQuery.toLowerCase()))])

@@ -34,7 +34,7 @@ function App() {
   }
 
   const deletePostHandler = (postId) => {
-    setPosts(posts.filter(p => p.id !== postId))
+    setPosts([...sortedPosts.filter(p => p.id !== postId)])
   }
 
   const sortHandler = (postsToBeSorted) => {
@@ -44,7 +44,7 @@ function App() {
   return (
     <div className='app'>
       <SortComponent sortHandler={sortHandler} posts={posts} />
-      <PostForm posts={posts} addPostHandler={addPostHandler} />
+      <PostForm posts={sortedPosts} addPostHandler={addPostHandler} />
       <PostList posts={sortedPosts} deletePostHandler={deletePostHandler} listTitle="Posts" />
     </ div>
   )
