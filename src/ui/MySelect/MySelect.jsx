@@ -1,6 +1,8 @@
+import styles from './MySelect.module.css'
+
 const MySelect = ({ options, defaultValue, onChange, value }) => {
     return (
-        <select value={value} onChange={onChange}>
+        <select className={styles.mySelect} value={value} onChange={onChange}>
             {/* <option value="" disabled>{defaultValue}</option> */}
             {
                 options.map(o =>
