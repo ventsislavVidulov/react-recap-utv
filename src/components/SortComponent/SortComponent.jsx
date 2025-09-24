@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 
 import MySelect from "../../ui/MySelect/MySelect";
 import ControledInput from "../../ui/ControledInput/ControledInput";
@@ -6,17 +6,22 @@ import ControledInput from "../../ui/ControledInput/ControledInput";
 const SortComponent = ({ posts, sortHandler }) => {
 
     const [sortObject, setSortObject] = useState({ accendingDescending: 'accending', sortChriterion: 'id', searchQuery: '' });
+    const [sortedPosts, setSortetPosts] = useState([...posts])
+
+    useMemo(() => {
+        console.log('Use memo called');
+        if (sortObject.sortChriterion === 'id') {
+            setSortetPosts([...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.id - b.id : b.id - a.id)])
+        } else if (sortObject.sortChriterion === 'title') {
+            setSortetPosts([...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title))])
+        } else if (sortObject.sortChriterion === 'description') {
+            setSortetPosts([...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.description.localeCompare(b.description) : b.description.localeCompare(a.description))])
+        }
+    }, [sortObject.accendingDescending, sortObject.sortChriterion])
 
     useEffect(() => {
-        const filteredPosts = [...posts.filter(p => p.title.toLowerCase().includes(sortObject.searchQuery.toLowerCase()))]
-        if (sortObject.sortChriterion === 'id') {
-            sortHandler([...filteredPosts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.id - b.id : b.id - a.id)])
-        } else if (sortObject.sortChriterion === 'title') {
-            sortHandler([...filteredPosts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title))])
-        } else if (sortObject.sortChriterion === 'description') {
-            sortHandler([...filteredPosts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.description.localeCompare(b.description) : b.description.localeCompare(a.description))])
-        }
-    }, [sortObject, posts])
+        sortHandler([...sortedPosts.filter(p => p.title.toLowerCase().includes(sortObject.searchQuery.toLowerCase()))])
+    }, [sortObject.searchQuery, posts])
 
     const accendingDescendingHandler = (e) => {
         setSortObject({ ...sortObject, accendingDescending: e.target.value });
