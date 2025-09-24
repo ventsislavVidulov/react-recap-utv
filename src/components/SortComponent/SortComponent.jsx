@@ -24,6 +24,9 @@ const SortComponent = ({ posts, sortHandler }) => {
         setSortObject({ ...sortObject, sortChriterion: e.target.value });
     }
 
+    console.log(sortObject);
+    
+
     return (
         <>
             <MySelect
@@ -35,7 +38,7 @@ const SortComponent = ({ posts, sortHandler }) => {
                     ]}
                 // defaultValue="Select sort method"
                 onChange={sortChriterionHandler}
-                value={sortObject.textContentSortCriterion}
+                value={sortObject.sortChriterion}
             />
             <MySelect
                 options={
