@@ -6,22 +6,21 @@ import ControledInput from "../../ui/ControledInput/ControledInput";
 const SortComponent = ({ posts, sortHandler }) => {
 
     const [sortObject, setSortObject] = useState({ accendingDescending: 'accending', sortChriterion: 'id', searchQuery: '' });
-    const [sortedPosts, setSortetPosts] = useState([...posts])
 
-    useMemo(() => {
+    const sortedPosts = useMemo(() => {
         console.log('Use memo called');
         if (sortObject.sortChriterion === 'id') {
-            setSortetPosts([...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.id - b.id : b.id - a.id)])
+            return [...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.id - b.id : b.id - a.id)]
         } else if (sortObject.sortChriterion === 'title') {
-            setSortetPosts([...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title))])
+            return [...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title))]
         } else if (sortObject.sortChriterion === 'description') {
-            setSortetPosts([...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.description.localeCompare(b.description) : b.description.localeCompare(a.description))])
+           return [...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.description.localeCompare(b.description) : b.description.localeCompare(a.description))]
         }
     }, [sortObject.accendingDescending, sortObject.sortChriterion])
 
     useEffect(() => {
         sortHandler([...sortedPosts.filter(p => p.title.toLowerCase().includes(sortObject.searchQuery.toLowerCase()))])
-    }, [sortObject.searchQuery, posts])
+    }, [sortObject, posts])
 
     const accendingDescendingHandler = (e) => {
         setSortObject({ ...sortObject, accendingDescending: e.target.value });
