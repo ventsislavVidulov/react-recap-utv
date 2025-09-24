@@ -4,6 +4,7 @@ import PostList from "./components/PostList";
 import PostForm from "./ui/PostForm/PostForm";
 
 import SortComponent from "./components/SortComponent/SortComponent";
+import MyModal from "./ui/MyModal/MyModal";
 
 function App() {
   const [posts, setPosts] = useState(
@@ -43,8 +44,10 @@ function App() {
 
   return (
     <div className='app'>
+      <MyModal>
+        <PostForm posts={sortedPosts} addPostHandler={addPostHandler} />
+      </MyModal>
       <SortComponent sortHandler={sortHandler} posts={posts} />
-      <PostForm posts={sortedPosts} addPostHandler={addPostHandler} />
       <PostList posts={sortedPosts} deletePostHandler={deletePostHandler} listTitle="Posts" />
     </ div>
   )

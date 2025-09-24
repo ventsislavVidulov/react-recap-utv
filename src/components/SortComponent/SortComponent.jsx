@@ -8,7 +8,7 @@ const SortComponent = ({ posts, sortHandler }) => {
     const [sortObject, setSortObject] = useState({ accendingDescending: 'accending', sortChriterion: 'id', searchQuery: '' });
 
     const sortedPosts = useMemo(() => {
-        console.log('Use memo called');
+        // console.log('Use memo called');
         if (sortObject.sortChriterion === 'id') {
             return [...posts.sort((a, b) => sortObject.accendingDescending === 'accending' ? a.id - b.id : b.id - a.id)]
         } else if (sortObject.sortChriterion === 'title') {
